@@ -42,7 +42,7 @@ export default function NotFound() {
                     Você pode voltar para a página inicial.
                 </Text>
 
-                <Link href="/home">
+                <Link href="/orders">
                     <Button
                         bg="blue.600"
                         color="white"

@@ -52,7 +52,7 @@ export default function Login() {
         return toaster.promise(loginPromise, {
             loading: { title: "Atualizando...", description: "Aguarde um momento" },
             success: (data) => {
-                router.push("/home")
+                router.push("/orders")
                 return {
                     title: "Sucesso!",
                     description: data.message,
@@ -78,8 +78,8 @@ export default function Login() {
 
             <Box
                 flex="1"
-                w="50%"               // metade da largura
-                h="100vh"             // altura total da página
+                w="50%"               
+                h="100vh"             
                 bgSize="cover"
                 backgroundPosition="center"
                 display={{ base: "none", md: "block" }}
@@ -89,8 +89,8 @@ export default function Login() {
                     src={image}
                     alt="Foto"
                     style={{
-                        width: "100%",     // ocupa toda a largura da box
-                        height: "100%",    // ocupa toda altura da box
+                        width: "100%",     
+                        height: "100%",   
                         objectFit: "cover" // garante que a imagem preencha sem distorcer
                     }}
                 />
