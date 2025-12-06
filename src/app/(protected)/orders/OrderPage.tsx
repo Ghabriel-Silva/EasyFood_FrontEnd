@@ -12,10 +12,11 @@ import {
   TablePagination,
 } from "@mui/material";
 
-import { Box, Flex, Heading, Button, Badge, FormatNumber, Stat, Text, HStack, Icon, Portal, Select, createListCollection } from "@chakra-ui/react";
-import { MdAdd, MdRemoveRedEye, MdPrint } from "react-icons/md";
+import { Box, Flex, Heading, Button, Badge, FormatNumber, Stat, Text, HStack, Icon, Center } from "@chakra-ui/react";
+import { MdAdd, MdPrint, MdOpenInNew } from "react-icons/md";
 import getPaymentColor, { fontSizeTableBody, fontWeigthBody, getStatusOption } from "./themeOrders";
 import { InfoTip } from "@/components/ui/toggle-tip"
+import SelectStatus from "./SelectStatus";
 
 
 
@@ -74,6 +75,12 @@ export default function OrderPage({ token }: { token: string }) {
     setPage(0);
   };
 
+
+
+  const updateOrderStatus = (orderId: string, novoStatus: string) => {
+    console.log(`Pedido ${orderId} atualizado para ${novoStatus}`);
+    // Aqui você pode chamar API para atualizar no banco
+  };
   return (
     <Box >
       <Flex justify={"space-between"} pb={4}>
@@ -88,15 +95,13 @@ export default function OrderPage({ token }: { token: string }) {
             <TableHead>
               <TableRow >
                 {[
-                  "Pedido",
-                  "Criado em",
+                  "Nº Pedido /Data",
                   "Cliente",
                   "Telefone",
                   "Endereço",
                   "Status",
                   "Pagamento",
                   "Total",
-                  "Nota",
                   "Alterar Status"
                 ].map((header) => (
                   <TableCell
@@ -116,31 +121,38 @@ export default function OrderPage({ token }: { token: string }) {
                   return (
                     <TableRow key={order.id}>
                       <TableCell>
-                        <Badge colorPalette={'blue'} variant="subtle" >
-                          <Flex
-                            borderBottom="1px solid"
-                            cursor="pointer"
-                            textStyle={fontSizeTableBody}
-                            fontWeight={fontWeigthBody}
-                            gap={1}
-                            align={'center'}
-                            _hover={{ color: "blue.900" }}
-                          >
-                            <Text>
-                              {"#" + (order.id.length > 4 ? order.id.slice(0, 4) : order.id)}
-                            </Text>
-                            <Icon>
-                              <MdRemoveRedEye />
-                            </Icon>
-                          </Flex>
-                        </Badge>
+                        <HStack>
+                          <Badge colorPalette={'blue'} variant="subtle" >
+                            <Flex
+                              borderBottom="1px solid"
+                              cursor="pointer"
+                              textStyle={fontSizeTableBody}
+                              fontWeight={fontWeigthBody}
+                              align={'center'}
+                              gap={1}
+                              _hover={{ color: "blue.900" }}
+                            >
+                              <HStack gap={0}>
+                                <Icon>
+                                  <MdOpenInNew />
+                                </Icon>
+                                <Text>
+                                  {(order.id.length > 4 ? order.id.slice(0, 4) : order.id) + ` - `}
+                                </Text>
+                              </HStack>
+                              <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>
+                                {new Date(order.created_at).toLocaleString("pt-BR").split("-")}
+                              </Text>
+                            </Flex>
+                          </Badge>
+                          <Badge colorPalette={'blue'} variant="subtle" >
+                            <Center _hover={{ color: "blue.900" }} cursor={"pointer"} w={"40px"}>
+                              <MdPrint />
+                            </Center>
+                          </Badge>
+                        </HStack>
                       </TableCell>
 
-                      <TableCell>
-                        <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>
-                          {new Date(order.created_at).toLocaleString("pt-BR")}
-                        </Text>
-                      </TableCell>
                       <TableCell>
                         {order.customerName
                           ? (
@@ -180,15 +192,14 @@ export default function OrderPage({ token }: { token: string }) {
                       <TableCell>
                         <Badge colorPalette={color} variant="subtle" >
                           <Flex align="center" gap={1} textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>
-                            {icon} {order.status}
+                            {icon} {order.status.toUpperCase()}
                           </Flex>
                         </Badge>
                       </TableCell>
                       <TableCell >
                         <Badge variant="subtle" colorPalette={getPaymentColor(order.paymentMethod)}>
                           <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>
-                            {order.paymentMethod
-                            }
+                            {order.paymentMethod.toUpperCase()}
                           </Text>
                         </Badge>
                       </TableCell>
@@ -201,42 +212,12 @@ export default function OrderPage({ token }: { token: string }) {
                           </Stat.ValueText>
                         </Stat.Root>
                       </TableCell>
-                      <TableCell>
-                        <Icon _hover={{ color: "blue.900" }} cursor={"pointer"}>
-                          <MdPrint />
-                        </Icon>
-                      </TableCell>
 
                       <TableCell>
-                        <Select.Root
-                          collection={animeMovies}
-                          defaultValue={["spirited_away"]}
-                          size="sm"
-                          width="320px"
-                        >
-                          <Select.HiddenSelect />
-                          <Select.Control>
-                            <Select.Trigger>
-                              <Select.ValueText placeholder="Select Status do Pedidos" />
-                            </Select.Trigger>
-                            <Select.IndicatorGroup>
-                              <Select.ClearTrigger />
-                              <Select.Indicator />
-                            </Select.IndicatorGroup>
-                          </Select.Control>
-                          <Portal>
-                            <Select.Positioner>
-                              <Select.Content>
-                                {animeMovies.items.map((anime) => (
-                                  <Select.Item item={anime} key={anime.value}>
-                                    {anime.label}
-                                    <Select.ItemIndicator />
-                                  </Select.Item>
-                                ))}
-                              </Select.Content>
-                            </Select.Positioner>
-                          </Portal>
-                        </Select.Root>
+                        <SelectStatus
+                          status={order.status}
+                          newStatus={(novoStatus) => updateOrderStatus(order.id, novoStatus)}
+                        />
                       </TableCell>
                     </TableRow>
                   );
@@ -255,16 +236,8 @@ export default function OrderPage({ token }: { token: string }) {
           />
         </TableContainer>
       </Paper>
-    </Box>
+    </Box >
   );
 }
 
 
-const animeMovies = createListCollection({
-  items: [
-    { label: "Spirited Away", value: "spirited_away" },
-    { label: "My Neighbor Totoro", value: "my_neighbor_totoro" },
-    { label: "Akira", value: "akira" },
-    
-  ],
-})
