@@ -11,16 +11,16 @@ const fetchData = async (token: string): Promise<IOrderResponse> => {
         },
         body: JSON.stringify({}),
     });
-    console.log("➡ Chamou API /order/filter");
+    console.log(" Chamou API /order/filter");
     return res.json()
-
 }
 
 export function useOrdersData(token: string) {
     return useQuery<IOrderResponse>({
         queryFn: () => fetchData(token),
         queryKey: ['order-data', token],
-        staleTime: 1000 * 60 * 5,          // 2 minutos (market standard)
+        staleTime: 5 * 60 * 1000,
+        refetchInterval: 5 * 60 * 1000,
+        refetchOnWindowFocus: "always",
     })
-
 }

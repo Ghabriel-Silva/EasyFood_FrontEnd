@@ -19,6 +19,8 @@ import { InfoTip } from "@/components/ui/toggle-tip"
 import SelectStatus from "./SelectStatus";
 import { useOrdersData } from "@/hooks/useOrdersData";
 import { IOrder } from "@/interfaces/orders-data";
+import { useOrdersMutade } from "@/hooks/useOrdersMutade";
+import { Toaster } from "@/components/ui/toaster";
 
 
 
@@ -48,10 +50,10 @@ export default function OrderPage({ token }: { token: string }) {
   };
 
 
+  const { mutate: mutateStatus } = useOrdersMutade(token)
 
   const updateOrderStatus = (orderId: string, novoStatus: string) => {
-    console.log(`Pedido ${orderId} atualizado para ${novoStatus}`);
-    // Aqui você pode chamar API para atualizar no banco
+    mutateStatus({ orderId, novoStatus })
   };
 
 
@@ -75,6 +77,7 @@ export default function OrderPage({ token }: { token: string }) {
       <Flex justify={"space-between"} pb={4}>
         <Heading size="xl" fontWeight={"medium"} >Pedidos</Heading>
         <Button bg={"blue.600"} borderRadius={"lg"} >Novo Pedido< MdAdd /></Button>
+        <Toaster></Toaster>
       </Flex>
       {!isLoading && <>
         <Paper>
@@ -231,7 +234,7 @@ export default function OrderPage({ token }: { token: string }) {
         </Paper>
         {isError && (
           <Alert.Root status="error" w={"100%"}>
-            <Alert.Indicator/>
+            <Alert.Indicator />
             <Alert.Content>
               <Alert.Title >Erro ao carregar pedidos</Alert.Title>
               <Alert.Description >
