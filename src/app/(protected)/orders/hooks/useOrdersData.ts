@@ -2,6 +2,7 @@ import { IOrderResponse } from "@/app/(protected)/orders/interfaces/orders-data"
 import { useQuery } from "@tanstack/react-query";
 
 
+
 const fetchData = async (token: string): Promise<IOrderResponse> => {
     const res = await fetch("http://localhost:8080/order/filter", {
         method: "POST",
@@ -10,7 +11,8 @@ const fetchData = async (token: string): Promise<IOrderResponse> => {
             Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-            startDate: new Date()
+            startDate: new Date().toISOString().split("T")[0]
+
         }),
     });
     console.log(" Chamou API /order/filter");

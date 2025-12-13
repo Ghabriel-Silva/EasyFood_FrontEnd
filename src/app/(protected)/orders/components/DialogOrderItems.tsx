@@ -1,21 +1,37 @@
-import { Collapsible, HStack, VStack, DataList, Stack, Badge, Text } from "@chakra-ui/react"
+import {
+    Collapsible,
+    HStack,
+    VStack,
+    DataList,
+    Stack,
+    Badge,
+    Text,
+} from "@chakra-ui/react"
 import { MdArrowForwardIos } from "react-icons/md"
 import { useState } from "react"
 import { IOrderItem } from "../interfaces/orders-data"
+
+// 👇 importa suas configs
+import {
+    fontText,
+    fontWeigthText,
+    ColorLabel,
+    fontSizeTitleLabel
+} from "@/themes"
 
 interface OrderItem {
     orderItens: IOrderItem[]
 }
 
 export const DialogOrderItems: React.FC<OrderItem> = ({ orderItens }) => {
-    const [open, setOpen] = useState<boolean>(false)
+    const [open, setOpen] = useState(false)
 
     return (
-        <Collapsible.Root open={open} onOpenChange={(e) => setOpen(e.open)} >
+        <Collapsible.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
             <Collapsible.Trigger
-                py="6"
+                py="2"
                 display="flex"
-                gap="1"
+                gap="2"
                 alignItems="center"
                 cursor="pointer"
             >
@@ -23,58 +39,107 @@ export const DialogOrderItems: React.FC<OrderItem> = ({ orderItens }) => {
                     transition="transform 0.2s"
                     _open={{ transform: "rotate(90deg)" }}
                 >
-                    <MdArrowForwardIos size={14} />
+                    <MdArrowForwardIos size={12} />
                 </Collapsible.Indicator>
-                <Text fontWeight="medium" fontSize="sm">Itens do Pedido</Text>
+
+                <Text
+                    fontSize={fontText}
+                    fontWeight={fontWeigthText}
+                >
+                    Itens do Pedido
+                </Text>
             </Collapsible.Trigger>
 
             <Collapsible.Content>
-                <VStack align="start" gap={3}>
+                <VStack align="stretch" gap={2}>
                     {orderItens.map((item, index) => {
                         const { name, description } = item.product ?? {}
+
                         return (
                             <Stack
                                 key={index}
-                                gap={3}
+                                gap={2}
                                 w="full"
                                 borderWidth="1px"
-                                borderRadius="md"
+                                borderRadius="sm"
                                 p="2"
                             >
-                                <DataList.Root gap={2}>
-                                    <HStack >
-                                        <DataList.Item bg={"blue"}>
-                                            <Stack justify="space-between" w="full" gap={2}>
-                                                <Badge colorPalette="purple" fontSize="10px" borderRadius="md" w={"50px"} >
-                                                    Produto
-                                                </Badge>
-                                                <Stack gap={0} >
-                                                    <Text fontWeight="semibold" fontSize="sm">{name}</Text>
-                                                    {/* <Text fontSize="xs" color="gray.600">{description}</Text> */}
-                                                </Stack>
-                                            </Stack>
-                                        </DataList.Item>
+                                <Badge
+                                    colorPalette="blue"
+                                    fontSize="10px"
+                                    borderRadius="sm"
+                                    w="fit-content"
+                                >
+                                    Item {index + 1}
+                                </Badge>
+
+                                <DataList.Root gap={1} orientation="vertical">
+                                    <HStack justify="space-between" align="start">
                                         <DataList.Item>
-                                            <DataList.ItemLabel fontSize="xs">Qtd</DataList.ItemLabel>
-                                            <DataList.ItemValue fontSize="xs">
+                                            <DataList.ItemLabel
+                                                fontSize={fontSizeTitleLabel}
+                                                color={ColorLabel}
+                                            >
+                                                Produto
+                                            </DataList.ItemLabel>
+                                            <DataList.ItemValue fontSize={fontText}>
+                                                {name}
+                                            </DataList.ItemValue>
+                                        </DataList.Item>
+
+                                        <DataList.Item textAlign="right">
+                                            <DataList.ItemLabel
+                                                fontSize={fontSizeTitleLabel}
+                                                color={ColorLabel}
+                                            >
+                                                Qtd
+                                            </DataList.ItemLabel>
+                                            <DataList.ItemValue fontSize={fontText}>
                                                 {item.quantity}
                                             </DataList.ItemValue>
                                         </DataList.Item>
 
-                                        <DataList.Item>
-                                            <DataList.ItemLabel fontSize="xs">Preço</DataList.ItemLabel>
-                                            <DataList.ItemValue fontSize="xs">
-                                                {item.price}
+                                        <DataList.Item textAlign="right">
+                                            <DataList.ItemLabel
+                                                fontSize={fontSizeTitleLabel}
+                                                color={ColorLabel}
+                                            >
+                                                Preço
+                                            </DataList.ItemLabel>
+                                            <DataList.ItemValue fontSize={fontText}>
+                                                R$ {item.price}
+                                            </DataList.ItemValue>
+                                        </DataList.Item>
+
+                                        <DataList.Item textAlign="right">
+                                            <DataList.ItemLabel
+                                                fontSize={fontSizeTitleLabel}
+                                                color={ColorLabel}
+                                            >
+                                                Subtotal
+                                            </DataList.ItemLabel>
+                                            <DataList.ItemValue
+                                                fontSize={fontText}
+                                                fontWeight={fontWeigthText}
+                                            >
+                                                R$ {item.subtotal}
                                             </DataList.ItemValue>
                                         </DataList.Item>
                                     </HStack>
 
-                                    <DataList.Item>
-                                        <DataList.ItemLabel fontSize="xs">Subtotal</DataList.ItemLabel>
-                                        <DataList.ItemValue fontSize="xs">
-                                            {item.subtotal}
-                                        </DataList.ItemValue>
-                                    </DataList.Item>
+                                    {description && (
+                                        <DataList.Item>
+                                            <DataList.ItemLabel
+                                                fontSize={fontSizeTitleLabel}
+                                                color={ColorLabel}
+                                            >
+                                                Descrição
+                                            </DataList.ItemLabel>
+                                            <DataList.ItemValue fontSize={fontSizeTitleLabel}>
+                                                {description}
+                                            </DataList.ItemValue>
+                                        </DataList.Item>
+                                    )}
                                 </DataList.Root>
                             </Stack>
                         )

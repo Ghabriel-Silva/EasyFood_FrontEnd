@@ -1,5 +1,4 @@
 //Função que sorteia uma cor 
-
  const colorPalettes = {
         blue: "blue",
         red: "red",
@@ -19,10 +18,4 @@ export function getRandonColor(): string {
   return colors[randonIndex]
 }
 
-//Font padrão para tamanhos de letras 
-type fontSizeTable = 'xs' | 'sm ' | 'md' | 'lg'
-type fontWeigthTable = 'light' | 'normal' | 'medium' | 'semibold' | 'bold'
-
-export const fontSizeTableBody: fontSizeTable = "xs"
-export const fontWeigthBody: fontWeigthTable = 'medium'
-
+// Tipagens 

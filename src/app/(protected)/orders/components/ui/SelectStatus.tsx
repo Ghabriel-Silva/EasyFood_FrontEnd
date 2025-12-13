@@ -1,5 +1,10 @@
 
 import { useState } from "react";
+import { fontText, fontWeigthText } from "../../../../../themes";
+import { FONT_SIZE_MAP } from "../../helpers/mapFontSize";
+
+
+
 
 type SelectStatusProps = {
     status: string,
@@ -18,7 +23,7 @@ const SelectStatus: React.FC<SelectStatusProps> = ({ status, newStatus }) => {
     }
 
     return (
-        <select value={currentStatus} onChange={handleChange} style={{ fontSize: "0.85rem", padding: "2px 6px" }}>
+        <select value={currentStatus} onChange={handleChange} style={{ fontSize: FONT_SIZE_MAP[fontText], padding: "2px 6px", fontWeight: fontWeigthText }}>
             <option value="Pendente">Pendente</option>
             <option value="Preparando" >Preparando</option>
             <option value="Completo" >Completo</option>

@@ -12,16 +12,23 @@ import {
     TablePagination,
 } from "@mui/material";
 
-import { HStack, Badge, Flex, Text, Stat, FormatNumber } from "@chakra-ui/react";
-import { fontSizeTableBody, fontWeigthBody } from "@/app/(protected)/orders/helpers/themes";
+import {
+    HStack,
+    Badge,
+    Flex,
+    Stat,
+    FormatNumber,
+} from "@chakra-ui/react";
 
 import { InfoTip } from "@/components/ui/toggle-tip";
-import SelectStatus from "./SelectStatus";
+import { TableText } from "@/app/(protected)/orders/components/ui/TableText";
+
+import SelectStatus from "./ui/SelectStatus";
 import { TableOrdersProps } from "../interfaces/table-orders-props";
 import { DialogOrder } from "./DialogOrderInfo";
 import { getStatusOption } from "../helpers/status";
 import getPaymentColor from "../helpers/payment";
-
+import { fontText } from "../../../../themes";
 
 export default function TableOrders({
     orders,
@@ -31,94 +38,128 @@ export default function TableOrders({
     handleChangeRowsPerPage,
     updateOrderStatus,
 }: TableOrdersProps) {
-
-
-
-
     return (
         <Paper>
-            <TableContainer sx={{ maxHeight: "auto" }}>
+            <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            {["Nº Pedido /Data", "Cliente", "Telefone", "Endereço", "Status", "Pagamento", "Total", "Alterar Status"].map(header => (
+                            {[
+                                "Nº Pedido / Data",
+                                "Cliente",
+                                "Telefone",
+                                "Endereço",
+                                "Status",
+                                "Pagamento",
+                                "Total",
+                                "Alterar Status",
+                            ].map((header) => (
                                 <TableCell key={header}>{header}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
-                        {orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(order => {
-                            const { color, icon } = getStatusOption(order.status);
-                            return (
-                                <TableRow key={order.id} hover>
-                                    {/* Pedido / Data / rederiza diolog */}
-                                    <TableCell>
-                                        <DialogOrder order={order} />
-                                    </TableCell>
+                        {orders
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((order) => {
+                                const { color, icon } = getStatusOption(order.status);
 
-                                    {/* Cliente */}
-                                    <TableCell>
-                                        {order.customerName ? (
-                                            <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>{order.customerName.trim()}</Text>
-                                        ) : (
-                                            <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody} color="red">Nome não informado</Text>
-                                        )}
-                                    </TableCell>
+                                return (
+                                    <TableRow key={order.id} hover>
+                                        {/* Pedido / Data */}
+                                        <TableCell>
+                                            <DialogOrder order={order} />
+                                        </TableCell>
 
-                                    {/* Telefone */}
-                                    <TableCell>
-                                        <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>{order.customerPhone}</Text>
-                                    </TableCell>
-
-                                    {/* Endereço */}
-                                    <TableCell>
-                                        <HStack>
-                                            {order.customerAddress && order.customerAddress.length > 15 ? (
-                                                <HStack>
-                                                    <InfoTip content={order.customerAddress} />
-                                                    <Text textStyle={fontSizeTableBody}>{order.customerAddress.slice(0, 15) + "..."}</Text>
-                                                </HStack>
+                                        {/* Cliente */}
+                                        <TableCell>
+                                            {order.customerName ? (
+                                                <TableText>
+                                                    {order.customerName.trim()}
+                                                </TableText>
                                             ) : (
-                                                <Text textStyle={fontSizeTableBody}>{order.customerAddress}</Text>
+                                                <TableText color="red.500">
+                                                    Nome não informado
+                                                </TableText>
                                             )}
-                                        </HStack>
-                                    </TableCell>
+                                        </TableCell>
 
-                                    {/* Status */}
-                                    <TableCell>
-                                        <Badge colorPalette={color} variant="subtle">
-                                            <Flex align="center" gap={1} textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>
-                                                {icon} {order.status.toUpperCase()}
-                                            </Flex>
-                                        </Badge>
-                                    </TableCell>
+                                        {/* Telefone */}
+                                        <TableCell>
+                                            <TableText>{order.customerPhone}</TableText>
+                                        </TableCell>
 
-                                    {/* Pagamento */}
-                                    <TableCell>
-                                        <Badge variant="subtle" colorPalette={getPaymentColor(order.paymentMethod)}>
-                                            <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>{order.paymentMethod.toUpperCase()}</Text>
-                                        </Badge>
-                                    </TableCell>
+                                        {/* Endereço */}
+                                        <TableCell>
+                                            <HStack>
+                                                {order.customerAddress &&
+                                                    order.customerAddress.length > 15 ? (
+                                                    <>
+                                                        <InfoTip content={order.customerAddress} />
+                                                        <TableText >
+                                                            {order.customerAddress.slice(0, 15) + "..."}
+                                                        </TableText>
+                                                    </>
+                                                ) : (
+                                                    <TableText>{order.customerAddress}</TableText>
+                                                )}
+                                            </HStack>
+                                        </TableCell>
 
-                                    {/* Total */}
-                                    <TableCell>
-                                        <Stat.Root>
-                                            <Stat.ValueText>
-                                                <Text textStyle={fontSizeTableBody} fontWeight={fontWeigthBody}>
-                                                    <FormatNumber value={parseFloat(order.total)} style="currency" currency="BRL" />
-                                                </Text>
-                                            </Stat.ValueText>
-                                        </Stat.Root>
-                                    </TableCell>
+                                        {/* Status */}
+                                        <TableCell>
+                                            <Badge colorPalette={color} variant="subtle">
+                                                <Flex align="center" gap={1}>
+                                                    {icon}
+                                                    <TableText>
+                                                        {order.status.toUpperCase()}
+                                                    </TableText>
+                                                </Flex>
+                                            </Badge>
+                                        </TableCell>
 
-                                    {/* Alterar Status */}
-                                    <TableCell>
-                                        <SelectStatus status={order.status} newStatus={(novoStatus) => updateOrderStatus(order.id, novoStatus)} />
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
+                                        {/* Pagamento */}
+                                        <TableCell>
+                                            <Badge
+                                                variant="subtle"
+                                                colorPalette={getPaymentColor(
+                                                    order.paymentMethod
+                                                )}
+                                            >
+                                                <TableText>
+                                                    {order.paymentMethod.toUpperCase()}
+                                                </TableText>
+                                            </Badge>
+                                        </TableCell>
+
+                                        {/* Total */}
+                                        <TableCell>
+                                            <Stat.Root>
+                                                <Stat.ValueText fontSize={fontText}>
+                                                    <TableText>
+                                                        <FormatNumber
+                                                            value={parseFloat(order.total)}
+                                                            style="currency"
+                                                            currency="BRL"
+                                                        />
+                                                    </TableText>
+                                                </Stat.ValueText>
+                                            </Stat.Root>
+                                        </TableCell>
+
+                                        {/* Alterar Status */}
+                                        <TableCell>
+                                            <SelectStatus
+                                                status={order.status}
+                                                newStatus={(novoStatus) =>
+                                                    updateOrderStatus(order.id, novoStatus)
+                                                }
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
                     </TableBody>
                 </Table>
 

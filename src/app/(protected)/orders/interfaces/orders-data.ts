@@ -20,6 +20,7 @@ export interface IOrder {
     additionalValue: string;
     discountValue: string;
     total: string;
+    observations:string;
     created_at: string;
     updated_at: string;
     items: IOrderItem[];
