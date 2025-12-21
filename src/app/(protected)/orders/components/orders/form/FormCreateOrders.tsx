@@ -11,10 +11,14 @@ import { FormField } from "@/app/(protected)/orders/components/orders/form/index
 import { FormFieldOptional } from "@/app/(protected)/orders/components/orders/form/index"
 import { SelectPayment } from "@/app/(protected)/orders/components/orders/form/index"
 import { MdAdd } from "react-icons/md";
+import { SelectProducts } from "./inputs/useSelectProducts"
+
+interface CreateOrdersProps {
+  token: string
+}
 
 
-
-export const FormCreateOrders = () => {
+export const FormCreateOrders = ({ token }: CreateOrdersProps) => {
 
 
     const {
@@ -176,9 +180,7 @@ export const FormCreateOrders = () => {
                     <Text>Produto/Quantidade</Text>
                     <HStack justifyContent={"space-between"} flexWrap={'wrap'}>
                         <VStack flex={"1"}>
-                            <FormField label="Produto" error={errors.customerName?.message}>
-                                <Input placeholder="ex: Maria db" />
-                            </FormField>
+                            <SelectProducts token={token} />
                         </VStack>
                         <VStack>
                             <FormField label="Quantidade" error={errors.customerName?.message}>
@@ -186,7 +188,7 @@ export const FormCreateOrders = () => {
                             </FormField>
                         </VStack>
                     </HStack>
-                    <Button  size="xs" colorPalette="green" variant="outline" w={"120px"}>
+                    <Button size="xs" colorPalette="green" variant="outline" w={"120px"}>
                         <MdAdd />
                         Add Produto
                     </Button>

@@ -12,7 +12,6 @@ const fetchData = async (token: string): Promise<IOrderResponse> => {
         },
         body: JSON.stringify({
             // startDate: new Date().toISOString().split("T")[0]
-
         }),
     });
     console.log(" Chamou API /order/filter");

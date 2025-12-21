@@ -41,7 +41,7 @@ export default function OrderPage({ token }: OrderPageProps) {
 
       <Flex justify="space-between" pb={4}>
         <Heading size="xl" fontWeight="medium">Pedidos</Heading>
-        <CreateOrders />
+        <CreateOrders token={token} />
         <Toaster />
       </Flex>
 

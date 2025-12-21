@@ -2,11 +2,14 @@ import { Button, Dialog, CloseButton, } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
 import { FormCreateOrders } from "@/app/(protected)/orders/components/orders/form/index";
 
-export const CreateOrders = () => {
+interface CreateOrdersProps {
+    token: string
+}
+export const CreateOrders = ({ token }: CreateOrdersProps) => {
     return (
         <Dialog.Root size={"lg"}>
             <Dialog.Trigger asChild>
-                <Button  bg="blue.600" borderRadius="lg">Novo Pedido <MdAdd /></Button>
+                <Button bg="blue.600" borderRadius="lg">Novo Pedido <MdAdd /></Button>
             </Dialog.Trigger>
             <Dialog.Backdrop />
             <Dialog.Positioner>
@@ -19,7 +22,7 @@ export const CreateOrders = () => {
                     </Dialog.Header>
                     {/* Componete formulario */}
                     <Dialog.Body>
-                        <FormCreateOrders />
+                        <FormCreateOrders token={token} />
                     </Dialog.Body>
 
                     <Dialog.Footer>
