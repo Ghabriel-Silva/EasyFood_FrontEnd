@@ -1,7 +1,7 @@
 "use client"
 import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Button, Input, Stack, InputGroup, Textarea, Field, HStack, Text, VStack } from "@chakra-ui/react"
+import { Button, Input, Stack, InputGroup, Textarea, Field, HStack } from "@chakra-ui/react"
 import { withMask } from "use-mask-input"
 
 import { OrderCreateSchema } from "@/app/(protected)/orders/validations/orders-create"
@@ -10,11 +10,10 @@ import { SelectFrete } from "@/app/(protected)/orders/components/orders/form/ind
 import { FormField } from "@/app/(protected)/orders/components/orders/form/index"
 import { FormFieldOptional } from "@/app/(protected)/orders/components/orders/form/index"
 import { SelectPayment } from "@/app/(protected)/orders/components/orders/form/index"
-import { MdAdd } from "react-icons/md";
-import { SelectProducts } from "./inputs/useSelectProducts"
+import { FormGetProducts } from "@/app/(protected)/orders/components/orders/form/index"
 
 interface CreateOrdersProps {
-  token: string
+    token: string
 }
 
 
@@ -173,28 +172,9 @@ export const FormCreateOrders = ({ token }: CreateOrdersProps) => {
                         <Textarea  {...register("observations")} placeholder="Comment" />
                         <Field.HelperText>Max 600 characteres.</Field.HelperText>
                     </FormField>
-
                 </FormFieldOptional>
-
-                <Stack bg={'gray.100'} p={2} w="100%" borderRadius={"sm"} gap={4} >
-                    <Text>Produto/Quantidade</Text>
-                    <HStack justifyContent={"space-between"} flexWrap={'wrap'}>
-                        <VStack flex={"1"}>
-                            <SelectProducts token={token} />
-                        </VStack>
-                        <VStack>
-                            <FormField label="Quantidade" error={errors.customerName?.message}>
-                                <Input placeholder="ex: Maria db" />
-                            </FormField>
-                        </VStack>
-                    </HStack>
-                    <Button size="xs" colorPalette="green" variant="outline" w={"120px"}>
-                        <MdAdd />
-                        Add Produto
-                    </Button>
-                </Stack>
-
-
+                
+                <FormGetProducts token={token} /> 
 
                 <Button type="submit" >Submit</Button>
             </Stack>

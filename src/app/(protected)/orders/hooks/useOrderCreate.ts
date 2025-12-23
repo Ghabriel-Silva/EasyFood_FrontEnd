@@ -19,6 +19,8 @@ const fetchData = async (token: string): Promise<Product[]> => {
 export function useOrdersCreate(token: string) {
     return useQuery<Product[]>({
         queryFn: (() => fetchData(token)),
-        queryKey: ['product-data', token]
+        queryKey: ['product-data', token],
+        staleTime: 0,
+        refetchOnWindowFocus: true,
     })
 }
