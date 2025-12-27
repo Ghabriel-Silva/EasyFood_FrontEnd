@@ -30,8 +30,7 @@ export const InputQuantity = ({ infoProducts, disabled, value, onchangeQuantity 
                 clampValueOnBlur
                 inputMode="numeric"
                 disabled={disabled}
-                minW="120px"
-                maxW="150px"
+                       
                 min={0}
                 max={infoProducts?.quantity ?? 50}
                 value={value}
@@ -52,9 +51,6 @@ export const InputQuantity = ({ infoProducts, disabled, value, onchangeQuantity 
     if (["l", "g", "kg"].includes(unit)) {
         return (
             <NumberInput.Root
-                minW="120px"
-                maxW="150px"
-
                 min={0} max={infoProducts?.quantity ?? 50}
                 value={value}
                 onValueChange={(e) => onchangeQuantity(e.value)}
@@ -62,10 +58,7 @@ export const InputQuantity = ({ infoProducts, disabled, value, onchangeQuantity 
                 <NumberInput.Control />
 
                 <InputGroup startElement={label} >
-                    <Input
-                        minW="120px"
-                        maxW="150px"
-
+                    <Input              
                         min={0} max={infoProducts?.quantity ?? 50}
                         value={value}
                         placeholder="0,00"
