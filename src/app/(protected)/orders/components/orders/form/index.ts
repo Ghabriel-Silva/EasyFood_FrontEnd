@@ -1,10 +1,11 @@
 export { FormCreateOrders } from './FormCreateOrders'
 export { FormFieldOptional } from './inputs/FormFieldOptional'
-export { FormField } from './inputs/FormField'
+// export { FormField } from './inputs/FormField'
 export { SelectCreateStatus } from './inputs/SelectCreateStatus'
 export { SelectFrete } from './inputs/SelectFrete'
 export { SelectPayment } from './inputs/SelectPayment'
 export {  SelectProducts} from './inputs/SelectProducts'
 export {FormFather } from './FormFather'
-export {InputField } from './inputsOrders/InputField'
+export {FormField} from './inputsOrders/FormField'
+export {FieldOptional} from './FieldOptional'
 

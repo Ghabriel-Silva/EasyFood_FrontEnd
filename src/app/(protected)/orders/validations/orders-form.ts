@@ -1,0 +1,107 @@
+import { transformeNumber } from "@/helpers/tranformeNumber";
+import * as yup from "yup";
+
+
+export const OrderFormSchema = yup.object({
+    customerName: yup
+        .string()
+        .typeError("O nome do Cliente deve ser texto")
+        .max(100, 'O nome do Cliente  deve ter até 100 caracteres')
+        .transform((value) => (value?.trim() === "" ? null : value))
+        .notRequired(),
+
+    customerAddress: yup
+        .string()
+        .typeError('O endereço deve ser texto')
+        .max(200, 'O endereço deve ter no máximo 200 caracteres')
+        .transform((value) => (value?.trim() === "" ? null : value))
+        .notRequired(),
+
+    customerPhone: yup
+        .string()
+        .transform((value) => {
+            if (!value) return null
+            const onlyNumber = value.replace(/\D/g, "")
+            return onlyNumber || null
+        })
+        .test("phone-length", "Telefone inválido", (value) => {
+            if (!value) return true
+            return value.length === 11 // se for igual a 11 passa no teste
+        })
+        .nullable()
+        .notRequired(),
+
+    status: yup
+        .string()
+        .oneOf(['Pendente', 'Preparando', 'Completo', 'Entregue', 'Cancelado'], "Status inválido")
+        .required('Status é obrigatório'),
+
+    paymentMethod: yup
+        .string()
+        .oneOf(['Dinheiro', 'Cartão', 'Pix', 'Outros'], "Forma de pagamento inválida")
+        .required("Selecione o método de pagamento"),
+
+
+    isFreightApplied: yup
+        .boolean()
+        .typeError("O valor deve ser booleano")
+        .required("O campo frete é obrigatório"),
+
+    customFreight: yup
+        .number()
+        .transform(transformeNumber)
+        .typeError('O frete deve ser um número')
+        .min(0, 'O frete deve ser positivo')
+        .notRequired(),
+
+    additionalValue: yup
+        .number()
+        .transform(transformeNumber)
+        .typeError('O valor adicional deve ser um número')
+        .min(0, 'O valor adicional deve ser positivo')
+        .notRequired(),
+
+    discountValue: yup
+        .number()
+        .transform(transformeNumber)
+        .typeError('O valor de desconto deve ser um número')
+        .notRequired(),
+
+    observations: yup
+        .string()
+        .max(600, 'Oberservações deve ter no máximo 600 caracteres')
+        .notRequired(),
+
+
+    // items: yup
+    //     .array()
+    //     .of(
+    //         yup.object({
+    //             name: yup
+    //                 .string()
+    //                 .required('O nome do produto é obrigatório'),
+
+    //             product_id: yup
+    //                 .string()
+    //                 .required('O produto é obrigatório'),
+
+    //             quantity: yup
+    //                 .number()
+    //                 .integer('A quantidade deve ser um número inteiro')
+    //                 .moreThan(0, "Quantidade deve ser maior que zero")             
+    //                 .required('A quantidade é obrigatória'),
+
+    //             price: yup
+    //                 .number()
+    //                 .typeError('O preço deve ser um número')
+    //                 .positive('O preço deve ser positivo')
+    //                 .required('O preço é obrigatório'),
+    //         })
+    //     )
+    //     .min(1, 'É necessário informar pelo menos um item no pedido')
+    //     .required('O campo items é obrigatório'),
+})
+
+export type OrderFormSchemaInterface = yup.InferType<typeof OrderFormSchema>
+
+
