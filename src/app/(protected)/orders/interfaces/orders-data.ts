@@ -20,7 +20,7 @@ export interface IOrder {
     additionalValue: string;
     discountValue: string;
     total: string;
-    observations:string;
+    observations: string;
     created_at: string;
     updated_at: string;
     items: IOrderItem[];
@@ -42,3 +42,4 @@ export interface IProductInfo {
     created_at: string;
     updated_at: string;
 }
+

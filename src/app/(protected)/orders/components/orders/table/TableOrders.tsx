@@ -29,6 +29,8 @@ import { DialogOrder } from "@/app/(protected)/orders/components/orders/dialogs/
 import { getStatusOption } from "@/app/(protected)/orders/helpers/index";
 import { getPaymentColor } from "@/app/(protected)/orders/helpers/index";
 import { fontText } from "@/themes";
+import { InfoNull } from "../../ui/InfoNull";
+
 
 export default function TableOrders({
     orders,
@@ -87,8 +89,11 @@ export default function TableOrders({
 
                                         {/* Telefone */}
                                         <TableCell>
-                                            <TableText>{order.customerPhone}</TableText>
+                                            <TableText>
+                                                {order.customerPhone ?? <InfoNull />}
+                                            </TableText>
                                         </TableCell>
+
 
                                         {/* Endereço */}
                                         <TableCell>

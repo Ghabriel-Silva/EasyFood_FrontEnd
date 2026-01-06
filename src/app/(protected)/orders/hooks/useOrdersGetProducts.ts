@@ -17,7 +17,7 @@ const fetchData = async (): Promise<Product[]> => {
     return json.data
 }
 
-export function useOrdersCreate() {
+export function useOrdersGetProducts() {
     return useQuery<Product[]>({
         queryFn:  fetchData,
         queryKey: ['product-data'],

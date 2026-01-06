@@ -17,10 +17,10 @@ import {
 } from "@chakra-ui/react"
 
 import { IOrder } from "@/app/(protected)/orders/interfaces/orders-data"
-import { fontText} from "@/themes"
-import { getRandonColor } from "@/app/(protected)/orders/helpers/index"
-import { getStatusOption } from"@/app/(protected)/orders/helpers/index"
-import {getPaymentColor} from "@/app/(protected)/orders/helpers/index"
+import { fontText } from "@/themes"
+import { calculoPercentualDescon, getRandonColor } from "@/app/(protected)/orders/helpers/index"
+import { getStatusOption } from "@/app/(protected)/orders/helpers/index"
+import { getPaymentColor } from "@/app/(protected)/orders/helpers/index"
 import { calculoPercentualAdicional } from "@/app/(protected)/orders/helpers/index"
 import { DialogOrderItems } from "@/app/(protected)/orders/components/orders/dialogs/index"
 
@@ -214,6 +214,8 @@ export const DialogOrder: React.FC<DialogProps> = ({ order }) => {
 
                                     {/* Valores */}
                                     <HStack gap={6} wrap="wrap">
+
+                                        {/*Adcional valor */}
                                         {Number(order.additionalValue) > 0 && (
                                             <DataList.Item>
                                                 <DataList.ItemLabel>
@@ -230,6 +232,7 @@ export const DialogOrder: React.FC<DialogProps> = ({ order }) => {
                                                             />
                                                         </TableText>
 
+
                                                         <Stat.Root>
                                                             <Badge fontSize="xs" colorPalette="green">
                                                                 <Stat.UpIndicator />
@@ -245,11 +248,41 @@ export const DialogOrder: React.FC<DialogProps> = ({ order }) => {
                                             </DataList.Item>
                                         )}
 
+                                        {/*Deconto valor */}
+                                        {Number(order.discountValue) > 0 && (
+                                            <DataList.Item>
+                                                <DataList.ItemLabel>
+                                                    <TableLabel>Desconto valor</TableLabel>
+                                                </DataList.ItemLabel>
+
+                                                <DataList.ItemValue>
+                                                    <HStack gap={2}>
+                                                        <TableText>
+                                                            <FormatNumber
+                                                                value={parseFloat(order.additionalValue)}
+                                                                style="currency"
+                                                                currency="BRL"
+                                                            />
+                                                        </TableText>
+                                                        <Stat.Root>
+                                                            <Badge fontSize="xs" colorPalette="red">
+                                                                <Stat.DownIndicator />
+                                                                {calculoPercentualDescon(
+                                                                    order.total,
+                                                                    order.discountValue
+                                                                )}
+                                                                %
+                                                            </Badge>
+                                                        </Stat.Root>
+                                                    </HStack>
+                                                </DataList.ItemValue>
+                                            </DataList.Item>
+                                        )}
+                                        {/*Valor total */}
                                         <DataList.Item>
                                             <DataList.ItemLabel>
                                                 <TableLabel>Total</TableLabel>
                                             </DataList.ItemLabel>
-
                                             <DataList.ItemValue>
                                                 <Badge colorPalette="blue">
                                                     <FormatNumber

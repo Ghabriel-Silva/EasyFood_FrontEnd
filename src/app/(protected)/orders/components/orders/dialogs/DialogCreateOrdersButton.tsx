@@ -1,8 +1,11 @@
-import { Button, Dialog, CloseButton, } from "@chakra-ui/react";
+import { Button, Dialog, CloseButton, Spinner } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
 import { FormFather } from "@/app/(protected)/orders/components/orders/form/FormFather"
+import { useOrdersCreate } from "../../../hooks/useOrdersCreate";
 
 export const ButtonCreateOrders = () => {
+
+    const { isPending } = useOrdersCreate()
     return (
         <Dialog.Root size={"lg"} closeOnInteractOutside={false} >
             <Dialog.Trigger asChild>
@@ -14,12 +17,16 @@ export const ButtonCreateOrders = () => {
                     <Dialog.CloseTrigger />
                     <Dialog.Header>
                         <Dialog.Title>
+                            {isPending && (
+                                <Spinner size="sm" />
+                            )}
                             Add Pedido
                         </Dialog.Title>
                     </Dialog.Header>
                     <Dialog.Body>
                         {/*Aqui rederizo o Formulario  */}
-                    <FormFather  />
+                        <FormFather />
+
                     </Dialog.Body>
                     <Dialog.CloseTrigger asChild>
                         <CloseButton size="sm" />

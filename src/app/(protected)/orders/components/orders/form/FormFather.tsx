@@ -1,7 +1,6 @@
 "use client"
 import {
-    Button, HStack, Stack
-
+    Button, HStack, Stack,
 } from "@chakra-ui/react"
 import { FieldOptional } from "./FieldOptional"
 import { FormField } from "./inputsOrders/FormField"
@@ -15,8 +14,9 @@ import { SelectStatus } from "./inputsOrders/SelectStatus"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { OrderFormSchema, OrderFormSchemaInterface } from "../../../validations/orders-form"
-import { FormCreateOrders } from "."
-import { SelectProducts } from "./FormCreateOrders"
+import { SelectProductsQt } from "./SelectProductsQt"
+import { useOrdersCreate } from "../../../hooks/useOrdersCreate"
+
 
 
 export const FormFather = () => {
@@ -35,9 +35,15 @@ export const FormFather = () => {
         formState: { errors }
     } = methods
 
-    const OnSubmite: SubmitHandler<OrderFormSchemaInterface> = (data) => {
+    const { mutate} = useOrdersCreate()
+
+    const OnSubmite: SubmitHandler<OrderFormSchemaInterface> = (data: OrderFormSchemaInterface) => {
+
+        mutate(data)
         console.log(data)
     }
+
+
 
     return (
         <FormProvider {...methods} >
@@ -72,44 +78,23 @@ export const FormFather = () => {
 
 
                     <FieldOptional>
-                        <FormField label="Frete Customizado">
-                            <GroupInput
-                                placeholder="0.00"
-                                groupProps={{
-                                    startAddon: "R$",
-                                    endAddon: "BLR",
-                                }}
-                            />
-                        </FormField>
-                        <FormField label="Valor Adicional">
-                            <GroupInput
-                                placeholder="0.00"
-                                groupProps={{
-                                    startAddon: "R$",
-                                    endAddon: "BLR",
-                                }}
-                            />
-                        </FormField>
-                        <FormField label="Desconto Valor">
-                            <GroupInput
-                                placeholder="0.00"
-                                groupProps={{
-                                    startAddon: "R$",
-                                    endAddon: "BLR",
-                                }}
-                            />
-                        </FormField>
+                        <HStack flexWrap="wrap" align="flex-start">
+                            <FormField label="Frete adicional" error={errors.customFreight?.message}>
+                                <GroupInput name="customFreight" />
+                            </FormField>
+                            <FormField label="Valor adicional" error={errors.additionalValue?.message}>
+                                <GroupInput name="additionalValue" />
+                            </FormField>
+                            <FormField label="Desconto" error={errors.discountValue?.message}>
+                                <GroupInput name="discountValue" />
+                            </FormField>
+                        </HStack>
                         <FormField label="Obersevação" fullWidth>
                             <TextArea placeholder="ex: Retirar cebola..." autoresize />
                         </FormField>
                     </FieldOptional>
 
-                    <FormField label="Produtos/Quantidade">
-                       <SelectProducts/>
-                    </FormField>
-
-
-
+                    <SelectProductsQt />
                     <Button type="submit">Enviar</Button>
                 </Stack>
             </form>
