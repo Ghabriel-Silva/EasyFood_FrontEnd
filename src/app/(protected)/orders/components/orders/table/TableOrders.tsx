@@ -18,18 +18,18 @@ import {
     Flex,
     Stat,
     FormatNumber,
+    Box
 } from "@chakra-ui/react";
 
 import { InfoTip } from "@/components/ui/toggle-tip";
 import { TableText } from "@/app/(protected)/orders/components/ui/index";
-
-import { SelectStatus } from "@/app/(protected)/orders/components/ui/index";
+import { SelectStatus } from "@/app/(protected)/orders/components/orders/table/index";
 import { TableOrdersProps } from "@/app/(protected)/orders/interfaces/table-orders-props";
 import { DialogOrder } from "@/app/(protected)/orders/components/orders/dialogs/index";
 import { getStatusOption } from "@/app/(protected)/orders/helpers/index";
 import { getPaymentColor } from "@/app/(protected)/orders/helpers/index";
 import { fontText } from "@/themes";
-import { InfoNull } from "../../ui/InfoNull";
+import { InfoNull } from "@/app/(protected)/orders/components/ui";
 
 
 export default function TableOrders({
@@ -76,39 +76,46 @@ export default function TableOrders({
 
                                         {/* Cliente */}
                                         <TableCell>
-                                            {order.customerName ? (
-                                                <TableText>
-                                                    {order.customerName.trim()}
-                                                </TableText>
-                                            ) : (
-                                                <TableText color="red.500">
-                                                    Nome não informado
-                                                </TableText>
-                                            )}
+                                            <HStack width={"150px"}>
+                                                {!order.customerName && <InfoNull />}
+
+                                                {order.customerName &&
+                                                    (order.customerName.length > 10 ? (
+                                                        <>
+                                                            <InfoTip content={order.customerName} />
+                                                            <TableText>
+                                                                {order.customerName.slice(0, 15)}...
+                                                            </TableText>
+                                                        </>
+                                                    ) : (
+                                                        <TableText>{order.customerName}</TableText>
+                                                    ))}
+                                            </HStack>
                                         </TableCell>
 
                                         {/* Telefone */}
                                         <TableCell>
-                                            <TableText>
+                                            <Box>
                                                 {order.customerPhone ?? <InfoNull />}
-                                            </TableText>
+                                            </Box>
                                         </TableCell>
-
 
                                         {/* Endereço */}
                                         <TableCell>
-                                            <HStack>
+                                            <HStack  width={"160px"}>
+                                                {!order.customerAddress && <InfoNull />}
+
                                                 {order.customerAddress &&
-                                                    order.customerAddress.length > 15 ? (
-                                                    <>
-                                                        <InfoTip content={order.customerAddress} />
-                                                        <TableText >
-                                                            {order.customerAddress.slice(0, 15) + "..."}
-                                                        </TableText>
-                                                    </>
-                                                ) : (
-                                                    <TableText>{order.customerAddress}</TableText>
-                                                )}
+                                                    (order.customerAddress.length > 15 ? (
+                                                        <>
+                                                            <InfoTip content={order.customerAddress} />
+                                                            <TableText>
+                                                                {order.customerAddress.slice(0, 15)}...
+                                                            </TableText>
+                                                        </>
+                                                    ) : (
+                                                        <TableText>{order.customerAddress}</TableText>
+                                                    ))}
                                             </HStack>
                                         </TableCell>
 
