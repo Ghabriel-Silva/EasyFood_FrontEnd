@@ -4,14 +4,14 @@
 import { Select, createListCollection } from "@chakra-ui/react"
 
 interface SelectBaseProps {
-    onChange: (value: string) => void
-    value?: string
+    onChange: (value: string[]) => void
+    value: string[] | undefined
     placeholder?: string
     items: { label: string; value: string }[]
 }
 
 export function SelectBase({
-    value,
+    value ,
     onChange,
     placeholder,
     items
@@ -20,8 +20,9 @@ export function SelectBase({
 
     return (
         <Select.Root
-            value={value ? [value] : []}
-            onValueChange={(item) => onChange(item.value[0])}
+            multiple
+            value={value ?? []}
+            onValueChange={(item) => onChange(item.value)} //Mostra o valor selecionado ochange contem o valor do array
             collection={collection}
             size="sm"
         >

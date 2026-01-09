@@ -28,27 +28,42 @@ export const filterOrderSchema = yup.object({
         .of(yup.mixed<PaymentMethod>().oneOf(Object.values(PaymentMethod), "Forma de pagamento deve ter um dos valores a seguir: Dinheiro, Cartão, Pix, Outros"))
         .min(0, "É necessário pelo menos um metodo de pagamento")
         .typeError("Defina um valor válido para o forma de pagamento")
-        .notRequired(),
+       .notRequired(),
+
 
     startDate: yup
         .date()
-        .typeError('Data inválida')
         .nullable()
-        .notRequired()
-        .transform((_, originalValue) => (originalValue ? new Date(originalValue) : null)),
+        .transform((value, originalValue) =>
+            originalValue === "" ? null : value
+        )
+        .typeError("Data inicial inválida"),
 
     finalDate: yup
         .date()
-        .typeError('Data inválida')
         .nullable()
-        .notRequired()
-        .transform((_, originalValue) => (originalValue ? new Date(originalValue) : null))
-        .when('startDate', (startDate, schema) => {
-            if (startDate instanceof Date && !isNaN(startDate.getTime())) {
-                return schema.min(startDate, "A data final não pode ser menor que a inicial")
+        .transform((value, originalValue) =>
+            originalValue === "" ? null : value
+        )
+        .typeError("Data final inválida")
+        .test(
+            "require-start-date-if-final",
+            "Defina a data inicial",
+            function (finalDate) {
+                const { startDate } = this.parent
+                if (!finalDate) return true
+                return !!startDate
             }
-            return schema
-        }),
+        )
+        .test(
+            "final-after-start",
+            "A data final não pode ser menor que a inicial",
+            function (finalDate) {
+                const { startDate } = this.parent
+                if (!finalDate || !startDate) return true
+                return finalDate >= startDate
+            }
+        ),
 
     clientName: yup
         .string()

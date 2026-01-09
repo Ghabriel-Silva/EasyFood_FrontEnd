@@ -1,7 +1,5 @@
 export {FormFather } from './FormFather'
-export {FieldOptional} from './FieldOptional'
 export {SelectProductsQt} from './SelectProductsQt'
-export {FormField} from './inputsOrders/FormField'
 export {GroupInput} from './inputsOrders/GroupInput'
 export {SelectFrete} from './inputsOrders/SelectFrete'
 export {SelectPayment} from './inputsOrders/SelectPayment'

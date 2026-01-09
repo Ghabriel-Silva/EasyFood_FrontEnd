@@ -9,5 +9,5 @@ export default async function home() {
 
   if (!token) redirect("/login");
   
-  return <OrderPage token={token!} />;
+  return <OrderPage />;
 }

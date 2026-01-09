@@ -2,20 +2,12 @@
 import {
     Button, HStack, Stack,
 } from "@chakra-ui/react"
-import { FieldOptional } from "./FieldOptional"
-import { FormField } from "./inputsOrders/FormField"
-import { GroupInput } from "./inputsOrders/GroupInput"
-import { TextArea } from "./inputsOrders/TextAreaInput"
-import { TextInput } from "./inputsOrders/TextInput"
-import { WithMaskInput } from "./inputsOrders/WithMaskInput"
-import { SelectPayment } from "./inputsOrders/SelectPayment"
-import { SelectFrete } from "./inputsOrders/SelectFrete"
-import { SelectStatus } from "./inputsOrders/SelectStatus"
+import { FormField, OpcionalView } from "@/app/(protected)/orders/components/ui/index"
+import { GroupInput, TextArea, TextInput , WithMaskInput,  SelectPayment,  SelectFrete, SelectStatus ,  SelectProductsQt} from "@/app/(protected)/orders/components/orders/form/index"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { OrderFormSchema, OrderFormSchemaInterface } from "../../../validations/orders-form"
-import { SelectProductsQt } from "./SelectProductsQt"
-import { useOrdersCreate } from "../../../hooks/useOrdersCreate"
+import { OrderFormSchema, OrderFormSchemaInterface } from "@/app/(protected)/orders/validations/orders-form"
+import { useOrdersCreate } from "@/app/(protected)/orders/hooks/useOrdersCreate"
 
 type ForFatherProps = {
     success: () => void
@@ -52,7 +44,7 @@ export const FormFather = ({ success }: ForFatherProps) => {
                     customerAddress: '',
                     paymentMethod: undefined,
                     status: 'Pendente',
-                    items: [], 
+                    items: [],
                     customFreight: null,
                     additionalValue: null,
                     discountValue: null,
@@ -95,9 +87,7 @@ export const FormFather = ({ success }: ForFatherProps) => {
                             <SelectStatus />
                         </FormField>
                     </HStack>
-
-
-                    <FieldOptional>
+                    <OpcionalView title="Info adicionais">
                         <HStack flexWrap="wrap" align="flex-start">
                             <FormField label="Frete adicional" error={errors.customFreight?.message}>
                                 <GroupInput name="customFreight" />
@@ -112,7 +102,9 @@ export const FormFather = ({ success }: ForFatherProps) => {
                         <FormField label="Obersevação" fullWidth>
                             <TextArea placeholder="ex: Retirar cebola..." autoresize />
                         </FormField>
-                    </FieldOptional>
+                    </OpcionalView>
+
+                   
 
                     <SelectProductsQt />
                     <Button type="submit"   >Enviar</Button>

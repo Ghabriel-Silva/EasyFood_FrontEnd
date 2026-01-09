@@ -4,14 +4,15 @@ import { useState } from "react"
 
 
 export const SelectFilterStatus = () => {
-    const [statusa, setStatus] = useState<string>('')
+   
     return (
-        <SelectBase
-            items={status.items}
-            value={statusa}
-            onChange={setStatus}
-            placeholder="Método de pagamento"
-        />
+        <></>
+        // <SelectBase
+        //     items={status.items}
+        //     value={statusa}
+        //     onChange={setStatus}
+        //     placeholder="Status Pedido"
+        // />
     )
 }
 
