@@ -1,18 +1,28 @@
-import { SelectBase } from "@/app/(protected)/orders/components/ui/SelectBase"
+import { SelectBase } from "@/app/(protected)/orders/components/ui/index"
+import { FilterOrderSchemaInterface } from "@/app/(protected)/orders/validations/filter-orders"
 import { createListCollection } from "@chakra-ui/react"
-import { useState } from "react"
+
+import { Controller, useFormContext } from "react-hook-form"
 
 
 export const SelectFilterStatus = () => {
-   
+    const { control } = useFormContext<FilterOrderSchemaInterface>()
     return (
-        <></>
-        // <SelectBase
-        //     items={status.items}
-        //     value={statusa}
-        //     onChange={setStatus}
-        //     placeholder="Status Pedido"
-        // />
+        <Controller
+            name="status"
+            control={control}
+            render={({ field }) => (
+                <SelectBase
+                    items={status.items}
+                    value={(field.value ?? []).map((v)=>String(v)).filter(Boolean)}
+                    onChange={(values)=>field.onChange(values)}
+                    placeholder="Selecione status"
+
+                />
+            )}
+
+        />
+
     )
 }
 
