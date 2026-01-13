@@ -1,4 +1,4 @@
-import { MdOpenInNew, MdPrint } from "react-icons/md"
+import { MdOpenInNew} from "react-icons/md"
 
 import {
     Avatar,
@@ -11,7 +11,6 @@ import {
     HStack,
     Portal,
     VStack,
-    Center,
     FormatNumber,
     Stat,
     Box
@@ -37,6 +36,8 @@ interface DialogProps {
 
 export const DialogOrder: React.FC<DialogProps> = ({ order }) => {
     const { color } = getStatusOption(order.status)
+
+
 
     return (
         <VStack alignItems="start">
@@ -69,15 +70,8 @@ export const DialogOrder: React.FC<DialogProps> = ({ order }) => {
                                 </TableText>
                             </Flex>
                         </Badge>
-
-                        <Badge colorPalette="blue" variant="subtle">
-                            <Center cursor="pointer" w="32px">
-                                <MdPrint size={14} />
-                            </Center>
-                        </Badge>
                     </HStack>
                 </Dialog.Trigger>
-
                 <Portal>
                     <Dialog.Backdrop />
                     <Dialog.Positioner>
@@ -144,7 +138,7 @@ export const DialogOrder: React.FC<DialogProps> = ({ order }) => {
                                     </HStack>
 
                                     {/* Endereço / Telefone / Pagamento */}
-                                    <HStack gap={6} wrap="wrap"  align={'start'}>
+                                    <HStack gap={6} wrap="wrap" align={'start'}>
                                         <DataList.Item>
                                             <DataList.ItemLabel>
                                                 <TableLabel>Endereço</TableLabel>

@@ -18,7 +18,8 @@ import {
     Flex,
     Stat,
     FormatNumber,
-    Box
+    Box,
+    Center,
 } from "@chakra-ui/react";
 
 import { InfoTip } from "@/components/ui/toggle-tip";
@@ -30,6 +31,7 @@ import { getStatusOption } from "@/app/(protected)/orders/helpers/index";
 import { getPaymentColor } from "@/app/(protected)/orders/helpers/index";
 import { fontText } from "@/themes";
 import { InfoNull } from "@/app/(protected)/orders/components/ui";
+import { MdPrint } from "react-icons/md"
 
 
 export default function TableOrders({
@@ -40,6 +42,16 @@ export default function TableOrders({
     handleChangeRowsPerPage,
     updateOrderStatus,
 }: TableOrdersProps) {
+    const URL_API = process.env.NEXT_PUBLIC_URL_API
+
+    
+    function handleClick(orderId: string) {
+        window.open(
+            `${URL_API}/print/${orderId}`,
+            '_blank'
+        )
+    }
+
     return (
         <Paper>
             <TableContainer>
@@ -71,12 +83,21 @@ export default function TableOrders({
                                     <TableRow key={order.id} hover>
                                         {/* Pedido / Data */}
                                         <TableCell>
-                                            <DialogOrder order={order} />
+                                            <HStack>
+                                                <DialogOrder order={order} />
+                                                <Badge colorPalette="blue" variant="subtle" _hover={{ bg: 'blue.200' }}>
+                                                    <Center cursor="pointer" w="32px">
+                                                        <MdPrint size={14} onClick={() => handleClick(order.id)} />
+                                                    </Center>
+                                                </Badge>
+                                            </HStack>
                                         </TableCell>
+
+
 
                                         {/* Cliente */}
                                         <TableCell>
-                                            <HStack width={"150px"}>
+                                            <HStack width={"150px"} gap={0}>
                                                 {!order.customerName && <InfoNull />}
 
                                                 {order.customerName &&
@@ -84,7 +105,7 @@ export default function TableOrders({
                                                         <>
                                                             <InfoTip content={order.customerName} />
                                                             <TableText>
-                                                                {order.customerName.slice(0, 15)}...
+                                                                {order.customerName.slice(0, 15)}
                                                             </TableText>
                                                         </>
                                                     ) : (
@@ -102,7 +123,7 @@ export default function TableOrders({
 
                                         {/* Endereço */}
                                         <TableCell>
-                                            <HStack  width={"160px"}>
+                                            <HStack width={"160px"}>
                                                 {!order.customerAddress && <InfoNull />}
 
                                                 {order.customerAddress &&

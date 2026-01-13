@@ -42,7 +42,6 @@ export function useOrdersData(filters: FilterOrderSchemaInterface) {
         staleTime:  60 * 1000,
         refetchInterval:  60 * 1000,
         refetchOnWindowFocus: "always",
-        retry: 3
+        retry: 1
     })
-
 }

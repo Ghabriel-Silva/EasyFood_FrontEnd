@@ -36,8 +36,8 @@ export const FormFather = ({ success }: ForFatherProps) => {
     const { mutate } = useOrdersCreate()
 
     const OnSubmite: SubmitHandler<OrderFormSchemaInterface> = (data: OrderFormSchemaInterface) => {
+        console.log(data)
         mutate(data, {
-
             onSuccess: () => {
                 reset({
                     customerName: '',
@@ -101,7 +101,7 @@ export const FormFather = ({ success }: ForFatherProps) => {
                             </FormField>
                         </HStack>
                         <FormField label="Obersevação" fullWidth>
-                            <TextArea placeholder="ex: Retirar cebola..." autoresize />
+                            <TextArea {...register('observations')} placeholder="ex: Retirar cebola..." autoresize  />
                         </FormField>
                     </OpcionalView>
 
