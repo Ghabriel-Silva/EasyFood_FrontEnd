@@ -7,5 +7,6 @@ export {SelectStatus} from './inputsOrders/SelectStatus'
 export {TextArea} from './inputsOrders/TextAreaInput'
 export {TextInput} from './inputsOrders/TextInput'
 export {WithMaskInput} from './inputsOrders/WithMaskInput'
+export {QuantityInput} from './inputsOrders/QuantityInput'
 
 

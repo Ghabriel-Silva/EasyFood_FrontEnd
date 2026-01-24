@@ -23,14 +23,13 @@ import {
 } from "@chakra-ui/react";
 
 import { InfoTip } from "@/components/ui/toggle-tip";
-import { TableText } from "@/app/(protected)/orders/components/ui/index";
+import { TableText, InfoNull } from "@/ui/index";
 import { SelectStatus } from "@/app/(protected)/orders/components/orders/table/index";
 import { TableOrdersProps } from "@/app/(protected)/orders/interfaces/table-orders-props";
 import { DialogOrder } from "@/app/(protected)/orders/components/orders/dialogs/index";
 import { getStatusOption } from "@/app/(protected)/orders/helpers/index";
 import { getPaymentColor } from "@/app/(protected)/orders/helpers/index";
 import { fontText } from "@/themes";
-import { InfoNull } from "@/app/(protected)/orders/components/ui";
 import { MdPrint } from "react-icons/md"
 
 
@@ -44,13 +43,15 @@ export default function TableOrders({
 }: TableOrdersProps) {
     const URL_API = process.env.NEXT_PUBLIC_URL_API
 
-    
+
     function handleClick(orderId: string) {
         window.open(
             `${URL_API}/print/${orderId}`,
             '_blank'
         )
     }
+
+
 
     return (
         <Paper>

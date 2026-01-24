@@ -12,7 +12,7 @@ export const ButtonCreateOrders = () => {
     return (
         <Dialog.Root size={"lg"} closeOnInteractOutside={false}  open={open}  onOpenChange={(detais)=>setOpen(detais.open)} >
             <Dialog.Trigger asChild>
-                <Button bg="blue.600" borderRadius="lg">Criar novo pedido<MdAdd /></Button>
+                <Button bg="blue.600" borderRadius="lg">Novo pedido<MdAdd /></Button>
             </Dialog.Trigger>
             <Dialog.Backdrop />
             <Dialog.Positioner>

@@ -1,3 +1,5 @@
+import { UniMedida } from "@/interfaces/type-uni-medida";
+
 export interface IOrderItem {
     id: string;
     name: string | null;
@@ -41,5 +43,6 @@ export interface IProductInfo {
     category_id: string | null;
     created_at: string;
     updated_at: string;
+    uni_medida: UniMedida,
 }
 

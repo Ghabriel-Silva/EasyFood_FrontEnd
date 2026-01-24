@@ -24,21 +24,21 @@ const fetchData = async (filters: FilterOrderSchemaInterface): Promise<IOrderRes
         },
         body: JSON.stringify(filterDefault),
     });
-    if (!res.ok) {
-        const erroBody = await res.json().catch(() => ({}))
-        const error = new Error(erroBody.message || 'Erro ao Buscar dados, atualize e tente Novamente')
+    const body = await res.json()
 
-        throw error
+    if (!res.ok) {
+        throw new Error(body.message || "Erro ao buscar produtos")
     }
-    return res.json();
+
+    return body ?? []
 }
 
 export function useOrdersData(filters: FilterOrderSchemaInterface) {
     return useQuery<IOrderResponse>({
         queryFn: () => fetchData(filters),
         queryKey: ['order-data', filters], //Só vai buscar os dados quando o filter mudar 
-        staleTime:  60 * 1000,
-        refetchInterval:  60 * 1000,
+        staleTime: 30 * 1000,
+        refetchInterval: 30 * 1000,
         refetchOnWindowFocus: "always",
         retry: 1
     })

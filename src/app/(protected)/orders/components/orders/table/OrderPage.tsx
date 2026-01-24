@@ -9,7 +9,7 @@ import { useOrdersMutade } from "@/app/(protected)/orders/hooks/index";
 import { Toaster } from "@/components/ui/toaster";
 import { ButtonCreateOrders } from "@/app/(protected)/orders/components/orders/dialogs/DialogCreateOrdersButton";
 import { FilterContainer } from "@/app/(protected)/orders/components/orders/filters/FilterContainer";
-import { FullScreenLoading, OpcionalView, StatEmpaty } from "@/app/(protected)/orders/components/ui/index";
+import { FullScreenLoading, OpcionalView, StatEmpaty } from "@/ui/index";
 import { FilterOrderSchemaInterface } from "../../../validations/filter-orders";
 
 
@@ -21,9 +21,10 @@ export default function OrderPage() {
 
   const [filters, setFilter] = useState<FilterOrderSchemaInterface>({})
 
-  const { data, isLoading, isError, error } = useOrdersData(filters);
+  const { data, isLoading, isError } = useOrdersData(filters);
 
   const { mutate: mutateStatus } = useOrdersMutade();
+  console.log(data)
 
   const updateOrderStatus = (orderId: string, novoStatus: string) => mutateStatus({ orderId, novoStatus });
 
@@ -63,8 +64,8 @@ export default function OrderPage() {
             updateOrderStatus={updateOrderStatus}
           />
 
-          {isError && (
-            <StatEmpaty title={'Resultado não encontrado'} description={error.message} />
+          {Array.isArray(data?.data) && data.data.length === 0 && (
+            <StatEmpaty title={'Resultado não encontrado'} description={'Nenhum produto encontrado, para esse Filtro'} />
           )}
         </>
       )}

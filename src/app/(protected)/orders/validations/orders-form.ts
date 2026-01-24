@@ -1,4 +1,5 @@
 import { transformeNumber } from "@/helpers/tranformeNumber";
+import { UniMedida } from "@/interfaces/type-uni-medida";
 import * as yup from "yup";
 
 
@@ -87,8 +88,7 @@ export const OrderFormSchema = yup.object({
 
                 quantity: yup
                     .number()
-                    .integer('A quantidade deve ser um número inteiro')
-                    .moreThan(0, "Quantidade deve ser maior que zero")             
+                    .moreThan(0, "Quantidade deve ser maior que zero")
                     .required('A quantidade é obrigatória'),
 
                 price: yup
@@ -96,6 +96,10 @@ export const OrderFormSchema = yup.object({
                     .typeError('O preço deve ser um número')
                     .positive('O preço deve ser positivo')
                     .required('O preço é obrigatório'),
+                uni_medida: yup
+                    .mixed<UniMedida>()
+                    .oneOf(Object.values(UniMedida))
+                    .required('A unidade de medida é obrigatória'),
             })
         )
         .min(1, 'É necessário informar pelo menos um item no pedido')

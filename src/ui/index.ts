@@ -7,4 +7,5 @@ export {OpcionalView} from './OpcionalView'
 export {FormField} from './FormField'
 export {StatEmpaty} from './StatEmpaty'
 export {FullScreenLoading} from './FullScreenLoading'
-export {} from './'
+export {MenuMobile} from "./MenuMobile"
+

@@ -1,3 +1,5 @@
+import { UniMedida } from "@/interfaces/type-uni-medida"
+
 // types/Product.ts
 export interface Product {
   id: string
@@ -8,7 +10,7 @@ export interface Product {
   isAvailable: boolean
   description: string
   category_id: string | null
-  uni_medida: string
+  uni_medida: UniMedida
   created_at: string
   updated_at: string
 }
@@ -18,5 +20,15 @@ export interface OrderItem {
   product_id: string
   quantity: number
   price: number
+}
+
+export interface frete {
+  defaultFreight:string
+}
+
+export interface ProductsResponse {
+  data: Product[]
+  frete?: frete
+  fromCache: boolean
 }
 
