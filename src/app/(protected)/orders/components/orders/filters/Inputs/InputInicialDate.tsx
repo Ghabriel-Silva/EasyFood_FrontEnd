@@ -1,4 +1,4 @@
-import { InputBase } from "@/app/(protected)/orders/components/ui/index"
+import { InputBase } from "@/ui/index"
 import { useFormContext, Controller } from "react-hook-form"
 import { FilterOrderSchemaInterface } from "@/app/(protected)/orders/validations/filter-orders"
 

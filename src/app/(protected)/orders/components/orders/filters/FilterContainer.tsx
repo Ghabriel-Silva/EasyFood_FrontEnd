@@ -1,9 +1,9 @@
-import { SimpleGrid, Input, HStack, Box } from "@chakra-ui/react"
+import { Flex, Input, HStack, Box } from "@chakra-ui/react"
 import { ButtonFilter, SelectFilterPayment, SelectFilterStatus, InputInicialDate, InputFinalDate } from "@/app/(protected)/orders/components/orders/filters/index"
 import { FormProvider, SubmitHandler, useForm, } from "react-hook-form"
 import { filterOrderSchema, FilterOrderSchemaInterface } from "../../../validations/filter-orders"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { FormField } from "@/app/(protected)/orders/components/ui/FormField"
+import { FormField } from "@/ui/index"
 import { getDateToFilter } from "../../../helpers/getDateToFilter"
 
 interface FilterContainerProps {
@@ -49,7 +49,7 @@ export const FilterContainer = ({ onFilterChange, isLoadingButton, isErrorResetF
 
             <form onSubmit={handleSubmit(onSubmite)}>
                 <Box p={4} bg={"bg.subtle"} boxShadow={'sm'}>
-                    <SimpleGrid minChildWidth="250px" gap={4} pb={4} alignItems={"center"}  >
+                    <Flex flexWrap={"wrap"} gap={4} pb={4} alignItems={"start"} >
                         <FormField label="Data inicial" error={errors.startDate?.message}>
                             <InputInicialDate />
                         </FormField>
@@ -65,7 +65,7 @@ export const FilterContainer = ({ onFilterChange, isLoadingButton, isErrorResetF
                         <FormField label="Buscar Cliente" >
                             <Input  {...register('clientName')} placeholder="Buscar Pedido por Cliente" />
                         </FormField>
-                    </SimpleGrid>
+                    </Flex>
                     <HStack>
                         <ButtonFilter isLoading={isLoadingButton} />
                     </HStack>

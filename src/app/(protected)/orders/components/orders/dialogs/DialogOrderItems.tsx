@@ -11,13 +11,14 @@ import { MdArrowForwardIos } from "react-icons/md"
 import { useState } from "react"
 import { IOrderItem } from "@/app/(protected)/orders/interfaces/orders-data"
 
-// 👇 importa suas configs
 import {
     fontText,
     fontWeigthText,
     ColorLabel,
     fontSizeTitleLabel
 } from "@/themes"
+import { tranformeUniMedida } from "@/helpers/transformeUniMedida"
+import {tranformeQuantity  } from "@/helpers/transformeQuantity"
 
 interface OrderItem {
     orderItens: IOrderItem[]
@@ -54,7 +55,7 @@ export const DialogOrderItems: React.FC<OrderItem> = ({ orderItens }) => {
                 <VStack align="stretch" gap={2}>
                     {orderItens.map((item, index) => {
                         const { name, description } = item.product ?? {}
-
+                        console.log(item.quantity)
                         return (
                             <Stack
                                 key={index}
@@ -95,10 +96,9 @@ export const DialogOrderItems: React.FC<OrderItem> = ({ orderItens }) => {
                                                 Qtd
                                             </DataList.ItemLabel>
                                             <DataList.ItemValue fontSize={fontText}>
-                                                {item.quantity}
+                                                {tranformeQuantity(item.product.uni_medida , item.quantity)} {tranformeUniMedida(item.product?.uni_medida)}
                                             </DataList.ItemValue>
                                         </DataList.Item>
-
                                         <DataList.Item textAlign="right">
                                             <DataList.ItemLabel
                                                 fontSize={fontSizeTitleLabel}

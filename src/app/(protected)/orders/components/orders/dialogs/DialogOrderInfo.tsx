@@ -23,12 +23,8 @@ import { getStatusOption } from "@/app/(protected)/orders/helpers/index"
 import { getPaymentColor } from "@/app/(protected)/orders/helpers/index"
 import { calculoPercentualAdicional } from "@/app/(protected)/orders/helpers/index"
 import { DialogOrderItems } from "@/app/(protected)/orders/components/orders/dialogs/index"
-import { InfoNull } from "../../ui/InfoNull";
+import { TableText , TableLabel, InfoNull } from "@/ui/index"
 
-
-
-import { TableText } from "@/app/(protected)/orders/components/ui/index"
-import { TableLabel } from "@/app/(protected)/orders/components/ui/index"
 
 interface DialogProps {
     order: IOrder

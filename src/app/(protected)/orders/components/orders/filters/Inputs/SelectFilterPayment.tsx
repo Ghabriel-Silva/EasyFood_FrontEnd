@@ -1,4 +1,4 @@
-import { SelectBase } from "@/app/(protected)/orders/components/ui/SelectBase"
+import { SelectBase } from "@/ui/index"
 import { FilterOrderSchemaInterface } from "@/app/(protected)/orders/validations/filter-orders"
 import { createListCollection } from "@chakra-ui/react"
 import { Controller, useFormContext } from "react-hook-form"

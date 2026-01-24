@@ -2,7 +2,7 @@
 import {
     Button, HStack, Stack,
 } from "@chakra-ui/react"
-import { FormField, OpcionalView } from "@/app/(protected)/orders/components/ui/index"
+import { FormField, OpcionalView } from "@/ui/index"
 import { GroupInput, TextArea, TextInput , WithMaskInput,  SelectPayment,  SelectFrete, SelectStatus ,  SelectProductsQt} from "@/app/(protected)/orders/components/orders/form/index"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"

@@ -1,27 +1,36 @@
-import { useQuery } from "@tanstack/react-query";
-import { Product } from "../interfaces/porducts";
+import { useQuery } from "@tanstack/react-query"
+import {ProductsResponse } from "../interfaces/products"
 
-
-const fetchData = async (): Promise<Product[]> => {
-    const resp = await fetch("http://localhost:8080/product?status=active&price=maior", {
-        method: "GET",
-        credentials:'include',
-        headers: {
-            "Content-Type": "application/json",
-           
+const fetchData = async (): Promise<ProductsResponse> => {
+    const res = await fetch(
+        "http://localhost:8080/product?status=active&price=maior",
+        {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
         }
-    })
+    )
+    const body = await res.json()
+    console.log(body)
 
-    console.log('Chamando a rota para buscar os Produtos')
-    const json = await resp.json()
-    return json.data
+    if (!res.ok) {
+        throw new Error(body.message || "Erro ao buscar produtos")
+    }
+
+    return {
+        data: body.data.products ?? [],
+        frete: body.data.frete,
+        fromCache: body.data.fromCache
+    } as ProductsResponse
 }
 
 export function useOrdersGetProducts() {
-    return useQuery<Product[]>({
-        queryFn:  fetchData,
-        queryKey: ['product-data'],
-        staleTime: 0,
+    return useQuery<ProductsResponse>({
+        queryKey: ["product-data"],
+        queryFn: fetchData,
         refetchOnWindowFocus: true,
+        retry: 3,
     })
 }
