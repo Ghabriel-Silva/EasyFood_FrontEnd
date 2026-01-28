@@ -43,9 +43,43 @@ export const TableContainer = () => {
         { numero: "John Walsh", nome: "Test Corp", unidade: "Hartford", validade: "CT", categoria: "TX", descricao: "TX", status: "TX" },
         { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
         { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "James Houston", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "Bob Herm", nome: "Test Corp", unidade: "Tampa", validade: "FL", categoria: "TX", descricao: "TX", status: "TX" },
+        { numero: "gabriel", nome: "Test Corp", unidade: "Dallas", validade: "TX", categoria: "TX", descricao: "TX", status: "TX" },
     ];
 
     const options = {
+        tableBodyHeight: 'calc(100vh - 250px)',
+        responsive: 'stacked',
         elevation: 1,
         selectableRows: "none",
         sort: true,
@@ -53,16 +87,15 @@ export const TableContainer = () => {
         filter: false,
         filterlist: false,
         searchable: false,
-        search: false,
+        search: true,
         rowsPerPageOptions: [10, 25, 50],
         print: false,
-        responsive: 'standard',
         storageKey: 'tabela-produtos',
         textLabels: {
             pagination: {
                 next: "Próxima Página",
                 previous: "Página Anterior",
-                rowsPerPage: "Linhas por página:", // O que você tentou fazer antes
+                rowsPerPage: "Linhas por página:",
                 displayRows: "de",
             },
             body: {
@@ -70,11 +103,11 @@ export const TableContainer = () => {
                 toolTip: "Classificar",
             },
             toolbar: {
-                // 1. Muda o texto que aparece ao passar o mouse (Tooltip) no ícone da barra
+                // Muda o texto que aparece ao passar o mouse  no ícone da barra
                 viewColumns: "Exibir Colunas",
             },
             viewColumns: {
-                // 2. Muda o título que aparece dentro do menu/modal que abre
+                // Muda o título que aparece dentro do menu/modal que abre
                 title: "Mostrar/Ocultar Colunas",
                 titleAria: "Mostrar/Ocultar Colunas da Tabela",
             },

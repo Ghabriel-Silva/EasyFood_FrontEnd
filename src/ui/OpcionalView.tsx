@@ -1,18 +1,24 @@
 "use client"
 
-import { Collapsible, Text } from "@chakra-ui/react"
+import { Collapsible, Text, useBreakpointValue } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { LuChevronRight } from "react-icons/lu"
 import { fontSizeTitleLabel } from "@/themes"
 
 interface PropsChildren {
     children: ReactNode
+    openDefault?: boolean,
     title?: string,
 }
 
-export const OpcionalView = ({ children, title }: PropsChildren) => {
+export const OpcionalView = ({ children, title, openDefault }: PropsChildren) => {
+    const isOpen = useBreakpointValue({
+        sm: false,
+        md: openDefault,
+        lg: openDefault,
+    })
     return (
-        <Collapsible.Root width="100%" >
+        <Collapsible.Root width="100%" open={isOpen} >
             <Collapsible.Trigger
                 paddingY="3"
                 display="flex"

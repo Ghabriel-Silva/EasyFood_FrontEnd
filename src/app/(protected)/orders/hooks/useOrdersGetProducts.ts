@@ -3,7 +3,7 @@ import {ProductsResponse } from "../interfaces/products"
 
 const fetchData = async (): Promise<ProductsResponse> => {
     const res = await fetch(
-        "http://localhost:8080/product?status=active&price=maior",
+        `${process.env.NEXT_PUBLIC_URL_API}/product?status=active&price=maior`,
         {
             method: "GET",
             credentials: "include",

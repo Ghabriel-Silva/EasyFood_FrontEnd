@@ -10,7 +10,7 @@ export const ButtonCreateOrders = () => {
     const { isPending } = useOrdersCreate()
 
     return (
-        <Dialog.Root size={"lg"} closeOnInteractOutside={false}  open={open}  onOpenChange={(detais)=>setOpen(detais.open)} >
+        <Dialog.Root size={{base:'full', md:'md', lg:"lg"}} closeOnInteractOutside={false}  open={open}  onOpenChange={(detais)=>setOpen(detais.open)} >
             <Dialog.Trigger asChild>
                 <Button bg="blue.600" borderRadius="lg">Novo pedido<MdAdd /></Button>
             </Dialog.Trigger>

@@ -3,7 +3,7 @@ import {
     Button, HStack, Stack,
 } from "@chakra-ui/react"
 import { FormField, OpcionalView } from "@/ui/index"
-import { GroupInput, TextArea, TextInput , WithMaskInput,  SelectPayment,  SelectFrete, SelectStatus ,  SelectProductsQt} from "@/app/(protected)/orders/components/orders/form/index"
+import { GroupInput, TextArea, TextInput, WithMaskInput, SelectPayment, SelectFrete, SelectStatus, SelectProductsQt } from "@/app/(protected)/orders/components/orders/form/index"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { OrderFormSchema, OrderFormSchemaInterface } from "@/app/(protected)/orders/validations/orders-form"
@@ -11,7 +11,7 @@ import { useOrdersCreate } from "@/app/(protected)/orders/hooks/useOrdersCreate"
 
 type ForFatherProps = {
     success: () => void
-  
+
 }
 
 export const FormFather = ({ success }: ForFatherProps) => {
@@ -88,7 +88,7 @@ export const FormFather = ({ success }: ForFatherProps) => {
                             <SelectStatus />
                         </FormField>
                     </HStack>
-                    <OpcionalView title="Info adicionais">
+                    <OpcionalView title="Info adicionais" openDefault={true}>
                         <HStack flexWrap="wrap" align="flex-start">
                             <FormField label="Frete adicional" error={errors.customFreight?.message}>
                                 <GroupInput name="customFreight" />
@@ -101,11 +101,9 @@ export const FormFather = ({ success }: ForFatherProps) => {
                             </FormField>
                         </HStack>
                         <FormField label="Obersevação" fullWidth>
-                            <TextArea {...register('observations')} placeholder="ex: Retirar cebola..." autoresize  />
+                            <TextArea {...register('observations')} placeholder="ex: Retirar cebola..." autoresize />
                         </FormField>
                     </OpcionalView>
-
-                   
 
                     <SelectProductsQt />
                     <Button type="submit"   >Enviar</Button>
